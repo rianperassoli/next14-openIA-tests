@@ -1,5 +1,5 @@
 import { FaBarsStaggered } from "react-icons/fa6";
-import Sidebar from "@/components/sidebar";
+import Sidebar from "@/components/Sidebar";
 
 const DashboardLayout = ({ children }) => {
   return (
