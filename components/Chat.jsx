@@ -9,7 +9,7 @@ const Chat = () => {
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
 
-  const { mutate, isPending } = useMutation({
+  const { mutate: createMessage, isPending } = useMutation({
     mutationFn: (query) => generateChatResponse([...messages, query]),
     onSuccess: (data) => {
       if (!data) {
@@ -24,7 +24,7 @@ const Chat = () => {
     e.preventDefault();
 
     const query = { role: "user", content: text };
-    mutate(query);
+    createMessage(query);
 
     setMessages((prev) => [...prev, query]);
     setText("");

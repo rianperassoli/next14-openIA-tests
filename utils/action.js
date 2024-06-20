@@ -21,6 +21,7 @@ export const generateChatResponse = async (chatMessages) => {
 
     return response.choices[0].message;
   } catch (error) {
+    console.log(error)
     return null;
   }
 };
