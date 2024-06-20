@@ -1,15 +1,23 @@
 "use client";
 
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import { generateChatResponse } from "../utils/action";
 
 const Chat = () => {
   const [text, setText] = useState("");
   const [message, setMessage] = useState([]);
 
+  const { mutate: createMessage } = useMutation({
+    mutationFn: (message) => {
+      generateChatResponse(message);
+    },
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(text);
+    createMessage(text);
   };
 
   return (
@@ -17,6 +25,7 @@ const Chat = () => {
       <div className="">
         <h2 className="text-5xl">messages</h2>
       </div>
+
       <form onSubmit={handleSubmit} className="max-w-4xl pt-12">
         <div className="join w-full">
           <input
