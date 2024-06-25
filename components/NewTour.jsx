@@ -11,7 +11,7 @@ import {
 import { TourInfo } from "@/components/TourInfo";
 
 const NewTour = () => {
-  const [messages, setMessages] = useState([]);
+  const queryClient = useQueryClient();
 
   const {
     mutate,
@@ -19,20 +19,24 @@ const NewTour = () => {
     data: tour,
   } = useMutation({
     mutationFn: async (destination) => {
+      const existingTour = await getExistingTour(destination);
+
+      if (existingTour) {
+        return existingTour;
+      }
+
       const newTour = await generateTourResponse(destination);
       if (newTour) {
+        await createNewTour(newTour);
+
+        queryClient.invalidateQueries({ queryKey: ["tours"] });
+
         return newTour;
       }
+
       toast.error("No matching city found...");
       return null;
     },
-    // onSuccess: (data) => {
-    //   if (!data) {
-    //     toast.error("Something went wrong...");
-    //     return;
-    //   }
-    //   setMessages((prev) => [...prev, data]);
-    // },
   });
 
   const handleSubmit = (e) => {
