@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
 } from "@tanstack/react-query";
 import { ToursPage } from "@/components/ToursPage";
-import { getAllTours } from "@/utils/actions";
+import { getAllTours } from "@/utils/action";
 
 const AllToursPage = async () => {
   const queryClient = new QueryClient();
