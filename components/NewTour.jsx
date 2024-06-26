@@ -7,7 +7,7 @@ import {
   getExistingTour,
   generateTourResponse,
   createNewTour,
-} from "../utils/action";
+} from "@/utils/action";
 import { TourInfo } from "@/components/TourInfo";
 
 const NewTour = () => {

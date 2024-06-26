@@ -2,7 +2,7 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { generateChatResponse } from "../utils/action";
+import { generateChatResponse } from "@/utils/action";
 import toast from "react-hot-toast";
 
 const Chat = () => {
