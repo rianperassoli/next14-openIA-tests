@@ -1,6 +1,9 @@
 "use server";
 import OpenAI from "openai";
+import axios from "axios";
 import prisma from "./db";
+
+const UNSPLASH_URL = `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_API_KEY}&query=`;
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -74,6 +77,17 @@ export const generateTourImageWithOpenAI = async ({ city, country }) => {
     });
 
     return tourImage?.data[0]?.url;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const generateTourImageWithUnsplash = async ({ city }) => {
+  try {
+    const { data } = await axios(`${UNSPLASH_URL}${city}`);
+
+    return data?.results[0]?.urls?.raw;
   } catch (error) {
     console.log(error);
     return null;

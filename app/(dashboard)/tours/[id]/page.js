@@ -1,7 +1,11 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { generateTourImageWithOpenAI, getSingleTour } from "@/utils/action";
+import {
+  generateTourImageWithOpenAI,
+  generateTourImageWithUnsplash,
+  getSingleTour,
+} from "@/utils/action";
 import { TourInfo } from "@/components/TourInfo";
 
 const TourPage = async ({ params }) => {
@@ -11,9 +15,15 @@ const TourPage = async ({ params }) => {
     redirect("/tours");
   }
 
-  const tourImage = await generateTourImageWithOpenAI({
+  //   -- Creating image with openAI -- EXPENSIVE
+  //   const tourImage = await generateTourImageWithOpenAI({
+  //     city: tour.city,
+  //     country: tour.country,
+  //   });
+
+  //   -- Creating image with Unsplash API
+  const tourImage = await generateTourImageWithUnsplash({
     city: tour.city,
-    country: tour.country,
   });
 
   return (
