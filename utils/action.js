@@ -24,7 +24,10 @@ export const generateChatResponse = async (chatMessages) => {
       max_tokens: 100,
     });
 
-    return response.choices[0].message;
+    return {
+      message: response.choices[0].message,
+      tokens: response.usage.total_tokens,
+    };
   } catch (error) {
     console.log(error);
     return null;
@@ -62,7 +65,7 @@ If you can't find info on exact ${city}, or ${city} does not exist, or it's popu
       return null;
     }
 
-    return tourData.tour;
+    return { tour: tourData.tour, tokens: response.usage.total_tokens };
   } catch (error) {
     console.log(error);
     return null;
