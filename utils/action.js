@@ -65,6 +65,21 @@ If you can't find info on exact ${city}, or ${city} does not exist, or it's popu
   }
 };
 
+export const generateTourImageWithOpenAI = async ({ city, country }) => {
+  try {
+    const tourImage = await openai.images.generate({
+      prompt: `a panoramic view of the ${city} ${country}`,
+      n: 1,
+      size: "256x256",
+    });
+
+    return tourImage?.data[0]?.url;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 export const getExistingTour = async ({ city, country }) => {
   return prisma.tour.findUnique({
     where: {
