@@ -1,5 +1,6 @@
 const TourInfo = ({ tour }) => {
   const { title, description, stops } = tour;
+
   return (
     <div className="max-w-2xl">
       <h1 className="mb-4 text-4xl font-semibold">{title}</h1>
